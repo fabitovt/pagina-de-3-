@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi trabajo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #2E1A47;
+    --panel: #3E2461;
+    --panel-light: #4B2E70;
+    --accent: #C9A6E0;
+    --accent-soft: #9C7FBE;
+    --ink: #F5EEFA;
+    --ink-dim: #CBB9DD;
+    --line: #5A3C7E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.6;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* --- Fondo decorativo --- */
+  .bg-decor{
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .bg-decor .grid{
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 34px 34px;
+    opacity: 0.14;
+  }
+  .bg-decor .blob{
+    position:absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+  }
+  .bg-decor .blob-1{
+    width: 420px; height: 420px;
+    top: -140px; left: -120px;
+    background: var(--panel-light);
+    opacity: 0.55;
+  }
+  .bg-decor .blob-2{
+    width: 380px; height: 380px;
+    top: 40%; right: -160px;
+    background: var(--accent-soft);
+    opacity: 0.30;
+  }
+  .bg-decor .blob-3{
+    width: 460px; height: 460px;
+    bottom: -200px; left: 10%;
+    background: var(--panel-light);
+    opacity: 0.45;
+  }
+  .bg-decor .ring{
+    position:absolute;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-soft);
+    opacity: 0.25;
+  }
+  .bg-decor .ring-1{ width: 240px; height: 240px; top: 10%; right: 8%; }
+  .bg-decor .ring-2{ width: 140px; height: 140px; bottom: 14%; left: 6%; }
+
+  .wrap{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+    position: relative;
+  }
+  header.hero{
+    margin-bottom: 72px;
+  }
+  header.hero .kicker{
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+  header.hero h1{
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: 2.6rem;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  section{
+    margin-bottom: 80px;
+    position: relative;
+  }
+  section .tab{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 6px 18px;
+    border: 1.5px solid var(--accent-soft);
+    border-radius: 2px;
+    margin-bottom: 28px;
+    background: var(--bg);
+  }
+
+  /* --- Foto + Descripcion --- */
+  .foto-desc{
+    display:flex;
+    gap: 28px;
+    align-items: flex-start;
+  }
+  .foto-box{
+    flex: 0 0 160px;
+    height: 200px;
+    border: 2px dashed var(--accent-soft);
+    border-radius: 4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    padding: 12px;
+    background: rgba(46, 26, 71, 0.5);
+    backdrop-filter: blur(2px);
+  }
+  .desc-text{
+    flex: 1;
+    color: var(--ink-dim);
+  }
+  .desc-text p{margin:0 0 12px;}
+  .desc-text p:last-child{margin-bottom:0;}
+
+  /* --- Dibujos --- */
+  .dibujos-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .dibujo-box{
+    aspect-ratio: 3/4;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(46, 26, 71, 0.5);
+  }
+  .dibujo-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* --- Juegos: carrusel --- */
+  .carousel{
+    position: relative;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    overflow: hidden;
+  }
+  .carousel-track{
+    display:flex;
+    transition: transform 0.5s cubic-bezier(.65,0,.35,1);
+    touch-action: pan-y;
+  }
+  .juego-slide{
+    flex: 0 0 100%;
+    padding: 28px 28px 24px;
+  }
+  .juego-slide h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: 1.25rem;
+    margin: 0 0 14px;
+  }
+  .juego-embed{
+    height: 160px;
+    border: 2px dashed var(--accent-soft);
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .scratch-card{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    gap: 10px;
+    height: 160px;
+    border: 1.5px solid var(--accent-soft);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.95rem;
+    font-weight: 500;
+    background: var(--panel-light);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .scratch-card:hover{
+    background: var(--bg);
+    border-color: var(--accent);
+  }
+  .scratch-icon{
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 1rem;
+  }
+  .juego-slide p{
+    font-size: 0.9rem;
+    color: var(--ink-dim);
+    margin:0;
+  }
+  .carousel-nav{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 18px;
+    padding: 14px 0 20px;
+  }
+  .nav-btn{
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-soft);
+    background: transparent;
+    color: var(--ink);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .nav-btn:hover{ background: var(--panel-light); border-color: var(--accent); }
+  .dots{ display:flex; gap: 8px; }
+  .dot{
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: var(--line);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.25s, transform 0.25s;
+  }
+  .dot.active{ background: var(--accent); transform: scale(1.25); }
+
+  @media (max-width: 560px){
+    .foto-desc{flex-direction: column;}
+    .foto-box{width:100%; flex-basis:auto;}
+    .dibujos-grid{grid-template-columns: 1fr 1fr;}
+    header.hero h1{font-size: 2rem;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="bg-decor">
+    <div class="grid"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+  </div>
+
+  <div class="wrap">
+
+    <header class="hero">
+      <p class="kicker">Trabajo práctico</p>
+      <h1>Jerónimo</h1>
+    </header>
+
+    <section>
+      <span class="tab">Foto y descripción</span>
+      <div class="foto-desc">
+        <div class="foto-box">
+          <!-- Reemplaza este div por: <img src="foto.jpg" alt="Foto" class="foto-img"> -->
+          Foto
+        </div>
+        <div class="desc-text">
+          <p>Soy un dibujante avanzado, programador principiante y apasionado de los videojuegos, con bastante experiencia y facilidad para adaptarme a distintos géneros.</p>
+          <p>Me considero una persona amable, tranquila y respetuosa, aunque mis gustos musicales son bastante opuestos y particulares. Actualmente soy estudiante de la Escuela N.º 451, donde continúo desarrollando mis conocimientos y habilidades en programación.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="tab">Dibujos</span>
+      <div class="dibujos-grid">
+        <div class="dibujo-box">
+          <img src="WhatsApp Image 2026-10-29 at 12.42.18 AM.jpeg" alt="Dibujo 1" class="dibujo-img">
+        </div>
+        <div class="dibujo-box">
+          <img src="1WhatsApp Image 2026-10-29 at 12.42.18 AM.jpeg" alt="Dibujo 2" class="dibujo-img">
+        </div>
+        <div class="dibujo-box">
+          <img src="2WhatsApp Image 2026-10-29 at 12.44.30 AM.jpeg" alt="Dibujo 3" class="dibujo-img">
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="tab">Juegos</span>
+      <div class="carousel">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="juego-slide">
+            <h3>Scratch</h3>
+            <a class="scratch-card" href="https://scratch.mit.edu/projects/1308157944/" target="_blank" rel="noopener">
+              <span class="scratch-icon">▶</span>
+              <span>Abrir proyecto en Scratch</span>
+            </a>
+          </div>
+          <div class="juego-slide">
+            <h3>Scratch</h3>
+            <a class="scratch-card" href="https://scratch.mit.edu/projects/1297509687/" target="_blank" rel="noopener">
+              <span class="scratch-icon">▶</span>
+              <span>Abrir proyecto en Scratch</span>
+            </a>
+          </div>
+          <div class="juego-slide">
+            <h3>App Inventor</h3>
+            <div class="juego-embed"></div>
+          </div>
+        </div>
+        <div class="carousel-nav">
+          <button class="nav-btn" id="prevBtn" aria-label="Anterior">‹</button>
+          <div class="dots" id="dots">
+            <button class="dot active" data-index="0" aria-label="Ir a Scratch 1"></button>
+            <button class="dot" data-index="1" aria-label="Ir a Scratch 2"></button>
+            <button class="dot" data-index="2" aria-label="Ir a App Inventor"></button>
+          </div>
+          <button class="nav-btn" id="nextBtn" aria-label="Siguiente">›</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const track = document.getElementById('carouselTrack');
+    const dots = Array.from(document.querySelectorAll('.dot'));
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const total = dots.length;
+    let index = 0;
+
+    function goTo(i){
+      index = (i + total) % total;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((d, di) => d.classList.toggle('active', di === index));
+    }
+
+    prevBtn.addEventListener('click', () => goTo(index - 1));
+    nextBtn.addEventListener('click', () => goTo(index + 1));
+    dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.index))));
+
+    // deslizar con el dedo / mouse
+    let startX = 0;
+    let isDragging = false;
+
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; });
+    track.addEventListener('touchend', e => {
+      if(!isDragging) return;
+      const diff = e.changedTouches[0].clientX - startX;
+      if(diff > 40) goTo(index - 1);
+      else if(diff < -40) goTo(index + 1);
+      isDragging = false;
+    });
+  </script>
+
+</body>
+</html>
