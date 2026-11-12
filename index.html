@@ -1,389 +1,819 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi trabajo</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #2E1A47;
-    --panel: #3E2461;
-    --panel-light: #4B2E70;
-    --accent: #C9A6E0;
-    --accent-soft: #9C7FBE;
-    --ink: #F5EEFA;
-    --ink-dim: #CBB9DD;
-    --line: #5A3C7E;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family:'Work Sans', sans-serif;
-    line-height:1.6;
-    position: relative;
-    overflow-x: hidden;
-  }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <meta name="description" content="Portfolio de Jerónimo, estudiante de la Escuela N.º 451: dibujos, proyectos de Scratch y más.">
+        <meta name="theme-color" content="#241338">
+        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🎨%3C/text%3E%3C/svg%3E">
+        <title>Jerónimo | Mi portfolio</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+        <style>
+            :root {
+                --bg: #241338;
+                --bg2: #2E1A47;
+                --panel: #3E2461;
+                --panel2: #4B2E70;
+                --acc: #C9A6E0;
+                --acc2: #9C7FBE;
+                --ink: #F5EEFA;
+                --dim: #CBB9DD;
+                --line: #5A3C7E;
+                box-sizing: border-box;
+                padding-top: env(safe-area-inset-top,0px);
+                padding-bottom: env(safe-area-inset-bottom,0px)
+            }
 
-  /* --- Fondo decorativo --- */
-  .bg-decor{
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    overflow: hidden;
-    pointer-events: none;
-  }
-  .bg-decor .grid{
-    position:absolute;
-    inset:0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 34px 34px;
-    opacity: 0.14;
-  }
-  .bg-decor .blob{
-    position:absolute;
-    border-radius: 50%;
-    filter: blur(70px);
-  }
-  .bg-decor .blob-1{
-    width: 420px; height: 420px;
-    top: -140px; left: -120px;
-    background: var(--panel-light);
-    opacity: 0.55;
-  }
-  .bg-decor .blob-2{
-    width: 380px; height: 380px;
-    top: 40%; right: -160px;
-    background: var(--accent-soft);
-    opacity: 0.30;
-  }
-  .bg-decor .blob-3{
-    width: 460px; height: 460px;
-    bottom: -200px; left: 10%;
-    background: var(--panel-light);
-    opacity: 0.45;
-  }
-  .bg-decor .ring{
-    position:absolute;
-    border-radius: 50%;
-    border: 1.5px solid var(--accent-soft);
-    opacity: 0.25;
-  }
-  .bg-decor .ring-1{ width: 240px; height: 240px; top: 10%; right: 8%; }
-  .bg-decor .ring-2{ width: 140px; height: 140px; bottom: 14%; left: 6%; }
+            * {
+                box-sizing: inherit
+            }
 
-  .wrap{
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 64px 24px 96px;
-    position: relative;
-  }
-  header.hero{
-    margin-bottom: 72px;
-  }
-  header.hero .kicker{
-    font-size: 0.95rem;
-    color: var(--accent);
-    margin: 0 0 8px;
-  }
-  header.hero h1{
-    font-family:'Fraunces', serif;
-    font-weight: 600;
-    font-size: 2.6rem;
-    margin: 0;
-    letter-spacing: -0.01em;
-  }
-  section{
-    margin-bottom: 80px;
-    position: relative;
-  }
-  section .tab{
-    display:inline-block;
-    font-family:'Fraunces', serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--ink);
-    padding: 6px 18px;
-    border: 1.5px solid var(--accent-soft);
-    border-radius: 2px;
-    margin-bottom: 28px;
-    background: var(--bg);
-  }
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 70px
+            }
 
-  /* --- Foto + Descripcion --- */
-  .foto-desc{
-    display:flex;
-    gap: 28px;
-    align-items: flex-start;
-  }
-  .foto-box{
-    flex: 0 0 160px;
-    height: 200px;
-    border: 2px dashed var(--accent-soft);
-    border-radius: 4px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    font-size: 0.85rem;
-    color: var(--ink-dim);
-    padding: 12px;
-    background: rgba(46, 26, 71, 0.5);
-    backdrop-filter: blur(2px);
-  }
-  .desc-text{
-    flex: 1;
-    color: var(--ink-dim);
-  }
-  .desc-text p{margin:0 0 12px;}
-  .desc-text p:last-child{margin-bottom:0;}
+            body {
+                margin: 0;
+                background: linear-gradient(180deg,var(--bg),var(--bg2) 50%,var(--bg));
+                color: var(--ink);
+                font-family: 'Work Sans',sans-serif;
+                line-height: 1.65;
+                overflow-x: hidden
+            }
 
-  /* --- Dibujos --- */
-  .dibujos-grid{
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-  .dibujo-box{
-    aspect-ratio: 3/4;
-    border: 1.5px solid var(--line);
-    border-radius: 4px;
-    overflow: hidden;
-    background: rgba(46, 26, 71, 0.5);
-  }
-  .dibujo-img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+            .bg {
+                position: fixed;
+                inset: 0;
+                z-index: -1;
+                overflow: hidden;
+                pointer-events: none
+            }
 
-  /* --- Juegos: carrusel --- */
-  .carousel{
-    position: relative;
-    border-radius: 8px;
-    border: 1px solid var(--line);
-    background: var(--panel);
-    overflow: hidden;
-  }
-  .carousel-track{
-    display:flex;
-    transition: transform 0.5s cubic-bezier(.65,0,.35,1);
-    touch-action: pan-y;
-  }
-  .juego-slide{
-    flex: 0 0 100%;
-    padding: 28px 28px 24px;
-  }
-  .juego-slide h3{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size: 1.25rem;
-    margin: 0 0 14px;
-  }
-  .juego-embed{
-    height: 160px;
-    border: 2px dashed var(--accent-soft);
-    border-radius: 4px;
-    margin-bottom: 14px;
-  }
-  .scratch-card{
-    display:flex;
-    flex-direction: column;
-    align-items:center;
-    justify-content:center;
-    gap: 10px;
-    height: 160px;
-    border: 1.5px solid var(--accent-soft);
-    border-radius: 4px;
-    text-decoration: none;
-    color: var(--ink);
-    font-size: 0.95rem;
-    font-weight: 500;
-    background: var(--panel-light);
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .scratch-card:hover{
-    background: var(--bg);
-    border-color: var(--accent);
-  }
-  .scratch-icon{
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: var(--bg);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size: 1rem;
-  }
-  .juego-slide p{
-    font-size: 0.9rem;
-    color: var(--ink-dim);
-    margin:0;
-  }
-  .carousel-nav{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap: 18px;
-    padding: 14px 0 20px;
-  }
-  .nav-btn{
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    border: 1.5px solid var(--accent-soft);
-    background: transparent;
-    color: var(--ink);
-    font-size: 1.1rem;
-    cursor: pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .nav-btn:hover{ background: var(--panel-light); border-color: var(--accent); }
-  .dots{ display:flex; gap: 8px; }
-  .dot{
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    border: none;
-    background: var(--line);
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.25s, transform 0.25s;
-  }
-  .dot.active{ background: var(--accent); transform: scale(1.25); }
+            .grid {
+                position: absolute;
+                inset: 0;
+                background-image: linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+                background-size: 34px 34px;
+                opacity: .12
+            }
 
-  @media (max-width: 560px){
-    .foto-desc{flex-direction: column;}
-    .foto-box{width:100%; flex-basis:auto;}
-    .dibujos-grid{grid-template-columns: 1fr 1fr;}
-    header.hero h1{font-size: 2rem;}
-  }
-</style>
-</head>
-<body>
+            .blob {
+                position: absolute;
+                border-radius: 50%;
+                filter: blur(70px);
+                animation: float 14s ease-in-out infinite alternate
+            }
 
-  <div class="bg-decor">
-    <div class="grid"></div>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-    <div class="ring ring-1"></div>
-    <div class="ring ring-2"></div>
-  </div>
+            .b1 {
+                width: 420px;
+                height: 420px;
+                top: -120px;
+                left: -120px;
+                background: var(--panel2);
+                opacity: .6
+            }
 
-  <div class="wrap">
+            .b2 {
+                width: 360px;
+                height: 360px;
+                top: 45%;
+                right: -150px;
+                background: var(--acc2);
+                opacity: .28;
+                animation-delay: -5s
+            }
 
-    <header class="hero">
-      <p class="kicker">Trabajo práctico</p>
-      <h1>Jerónimo</h1>
-    </header>
+            .b3 {
+                width: 440px;
+                height: 440px;
+                bottom: -180px;
+                left: 15%;
+                background: var(--panel2);
+                opacity: .5;
+                animation-delay: -9s
+            }
 
-    <section>
-      <span class="tab">Foto y descripción</span>
-      <div class="foto-desc">
-        <div class="foto-box">
-          <!-- Reemplaza este div por: <img src="foto.jpg" alt="Foto" class="foto-img"> -->
-          Foto
+            .ring {
+                position: absolute;
+                border-radius: 50%;
+                border: 1.5px solid var(--acc2);
+                opacity: .25;
+                animation: spin 40s linear infinite
+            }
+
+            .r1 {
+                width: 240px;
+                height: 240px;
+                top: 12%;
+                right: 7%;
+                border-style: dashed
+            }
+
+            .r2 {
+                width: 130px;
+                height: 130px;
+                bottom: 15%;
+                left: 6%;
+                animation-direction: reverse
+            }
+
+            @keyframes float {
+                to {
+                    transform: translate(40px,60px) scale(1.15)
+                }
+            }
+
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg)
+                }
+            }
+
+            #bar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 3px;
+                width: 0;
+                background: var(--acc);
+                z-index: 30
+            }
+
+            nav {
+                position: sticky;
+                top: 0;
+                z-index: 20;
+                display: flex;
+                justify-content: center;
+                gap: 6px;
+                padding: 10px 12px;
+                background: rgba(36,19,56,.75);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid var(--line);
+                flex-wrap: wrap
+            }
+
+            nav a {
+                color: var(--dim);
+                text-decoration: none;
+                font-size: .85rem;
+                padding: 5px 12px;
+                border-radius: 20px;
+                transition: .25s
+            }
+
+            nav a:hover {
+                background: var(--panel2);
+                color: var(--ink)
+            }
+
+            .wrap {
+                max-width: 860px;
+                margin: 0 auto;
+                padding: 0 22px 80px
+            }
+
+            .hero {
+                text-align: center;
+                padding: 90px 0 70px
+            }
+
+            .kicker {
+                color: var(--acc);
+                letter-spacing: .2em;
+                text-transform: uppercase;
+                font-size: .8rem;
+                margin: 0 0 10px;
+                animation: up .8s both
+            }
+
+            .hero h1 {
+                font-family: 'Fraunces',serif;
+                font-weight: 700;
+                font-size: clamp(3rem,13vw,5.5rem);
+                margin: 0;
+                line-height: 1;
+                letter-spacing: -.02em;
+                background: linear-gradient(90deg,#fff,var(--acc),#fff);
+                background-size: 200% auto;
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                animation: up .8s .15s both,shine 6s linear infinite
+            }
+
+            .hero p.sub {
+                color: var(--dim);
+                margin: 16px auto 0;
+                max-width: 460px;
+                animation: up .8s .3s both
+            }
+
+            .arrow {
+                display: inline-block;
+                margin-top: 34px;
+                color: var(--acc);
+                font-size: 1.6rem;
+                animation: bounce 1.6s ease-in-out infinite;
+                text-decoration: none
+            }
+
+            @keyframes up {
+                from {
+                    opacity: 0;
+                    transform: translateY(24px)
+                }
+            }
+
+            @keyframes shine {
+                to {
+                    background-position: 200% center
+                }
+            }
+
+            @keyframes bounce {
+                50% {
+                    transform: translateY(10px)
+                }
+            }
+
+            section {
+                margin-bottom: 90px
+            }
+
+            h2 {
+                font-family: 'Fraunces',serif;
+                font-size: 1.9rem;
+                margin: 0 0 26px;
+                display: flex;
+                align-items: center;
+                gap: 14px
+            }
+
+            h2::after {
+                content: "";
+                flex: 1;
+                height: 1.5px;
+                background: linear-gradient(90deg,var(--acc2),transparent)
+            }
+
+            .rv {
+                opacity: 0;
+                transform: translateY(34px);
+                transition: opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)
+            }
+
+            .rv.in {
+                opacity: 1;
+                transform: none
+            }
+
+            .about {
+                display: flex;
+                gap: 30px;
+                align-items: center;
+                background: rgba(62,36,97,.55);
+                border: 1px solid var(--line);
+                border-radius: 14px;
+                padding: 26px
+            }
+
+            .foto {
+                flex: 0 0 170px;
+                width: 170px;
+                height: 220px;
+                object-fit: cover;
+                object-position: 50% 25%;
+                border: 2px solid var(--acc2);
+                border-radius: 10px;
+                animation: pulse 3s ease-in-out infinite
+            }
+
+            @keyframes pulse {
+                50% {
+                    box-shadow: 0 0 0 10px rgba(201,166,224,.1)
+                }
+            }
+
+            .about p {
+                margin: 0 0 12px;
+                color: var(--dim)
+            }
+
+            .about p:last-child {
+                margin: 0
+            }
+
+            .draws {
+                display: grid;
+                grid-template-columns: repeat(3,1fr);
+                gap: 16px
+            }
+
+            .draw {
+                aspect-ratio: 3/4;
+                border-radius: 10px;
+                overflow: hidden;
+                border: 1.5px solid var(--line);
+                background: var(--panel);
+                transition: transform .4s,box-shadow .4s,border-color .4s
+            }
+
+            .draw img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                transition: transform .6s
+            }
+
+            .draw:hover {
+                transform: translateY(-8px) rotate(-1deg);
+                box-shadow: 0 18px 36px rgba(0,0,0,.45);
+                border-color: var(--acc)
+            }
+
+            .draw:hover img {
+                transform: scale(1.08)
+            }
+
+            .carousel {
+                border-radius: 14px;
+                border: 1px solid var(--line);
+                background: var(--panel);
+                overflow: hidden
+            }
+
+            .track {
+                display: flex;
+                align-items: flex-start;
+                transition: transform .5s cubic-bezier(.65,0,.35,1),height .4s;
+                touch-action: pan-y
+            }
+
+            .slide {
+                flex: 0 0 100%;
+                padding: 28px
+            }
+
+            .slide h3 {
+                font-family: 'Fraunces',serif;
+                margin: 0 0 14px;
+                font-size: 1.25rem
+            }
+
+            .play {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                height: 64px;
+                margin-top: 14px;
+                border: 1.5px solid var(--acc2);
+                border-radius: 10px;
+                text-decoration: none;
+                color: var(--ink);
+                background: var(--panel2);
+                font-weight: 500;
+                transition: .3s
+            }
+
+            .play:hover {
+                background: var(--bg);
+                border-color: var(--acc)
+            }
+
+            .play i {
+                font-style: normal;
+                width: 46px;
+                height: 46px;
+                border-radius: 50%;
+                background: var(--acc);
+                color: var(--bg);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: pulse 2s infinite
+            }
+
+            .shot {
+                width: 100%;
+                max-height: 300px;
+                object-fit: cover;
+                border-radius: 10px;
+                border: 1.5px solid var(--line);
+                display: block
+            }
+
+            .shot.wh {
+                background: #fff;
+                object-fit: contain;
+                max-height: 340px
+            }
+
+            .two {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                align-items: center
+            }
+
+            .qr {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                text-align: center;
+                text-decoration: none;
+                color: var(--dim);
+                font-size: .9rem
+            }
+
+            .qr img {
+                width: 100%;
+                max-width: 240px;
+                border-radius: 10px;
+                background: #fff;
+                transition: transform .3s
+            }
+
+            .qr:hover img {
+                transform: scale(1.04)
+            }
+
+            .term {
+                margin: 0;
+                background: #050805;
+                color: #39ff6a;
+                font: 11.5px/1.55 ui-monospace,Menlo,Consolas,monospace;
+                padding: 16px;
+                border-radius: 10px;
+                border: 1.5px solid var(--line);
+                white-space: pre-wrap;
+                word-break: break-word;
+                overflow-wrap: anywhere
+            }
+
+            .term b {
+                display: inline-block;
+                width: 8px;
+                height: 14px;
+                background: #39ff6a;
+                vertical-align: -2px;
+                animation: blink 1s steps(1) infinite
+            }
+
+            @keyframes blink {
+                50% {
+                    opacity: 0
+                }
+            }
+
+            .cnav {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 18px;
+                padding: 12px 0 20px
+            }
+
+            .cnav button.nb {
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+                border: 1.5px solid var(--acc2);
+                background: none;
+                color: var(--ink);
+                cursor: pointer;
+                font-size: 1.1rem
+            }
+
+            .cnav button.nb:hover {
+                background: var(--panel2)
+            }
+
+            .dots {
+                display: flex;
+                gap: 8px
+            }
+
+            .dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                border: 0;
+                padding: 0;
+                background: var(--line);
+                cursor: pointer;
+                transition: .25s
+            }
+
+            .dot.on {
+                background: var(--acc);
+                transform: scale(1.3)
+            }
+
+            .feat {
+                display: grid;
+                grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+                gap: 16px
+            }
+
+            .card {
+                background: rgba(62,36,97,.55);
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                padding: 20px;
+                transition: transform .3s,border-color .3s,background .3s
+            }
+
+            .card:hover {
+                transform: translateY(-6px);
+                border-color: var(--acc);
+                background: var(--panel)
+            }
+
+            .card .ic {
+                font-size: 1.7rem;
+                display: block;
+                margin-bottom: 6px
+            }
+
+            .card h3 {
+                font-family: 'Fraunces',serif;
+                margin: 0 0 6px;
+                font-size: 1.1rem
+            }
+
+            .card p {
+                margin: 0;
+                color: var(--dim);
+                font-size: .92rem
+            }
+
+            #top {
+                position: fixed;
+                right: 16px;
+                bottom: calc(16px + env(safe-area-inset-bottom,0px));
+                width: 42px;
+                height: 42px;
+                border-radius: 50%;
+                border: 1.5px solid var(--acc);
+                background: var(--panel);
+                color: var(--ink);
+                font-size: 1.2rem;
+                cursor: pointer;
+                opacity: 0;
+                pointer-events: none;
+                transition: .3s;
+                z-index: 25
+            }
+
+            #top.show {
+                opacity: 1;
+                pointer-events: auto
+            }
+
+            a:focus-visible,button:focus-visible {
+                outline: 2px solid var(--acc);
+                outline-offset: 3px
+            }
+
+            .skip {
+                position: absolute;
+                left: -999px;
+                top: 8px;
+                background: var(--acc);
+                color: var(--bg);
+                padding: 8px 14px;
+                border-radius: 6px;
+                z-index: 50
+            }
+
+            .skip:focus {
+                left: 8px
+            }
+
+            footer {
+                text-align: center;
+                color: var(--dim);
+                font-size: .85rem;
+                padding: 30px 0 10px;
+                border-top: 1px solid var(--line)
+            }
+
+            @media(max-width: 600px) {
+                .two {
+                    grid-template-columns:1fr
+                }
+
+                .foto {
+                    width: 100%;
+                    height: 320px
+                }
+
+                .about {
+                    flex-direction: column;
+                    text-align: left
+                }
+
+                .foto {
+                    width: 100%;
+                    flex-basis: auto
+                }
+
+                .draws {
+                    gap: 10px
+                }
+
+                .hero {
+                    padding: 60px 0 50px
+                }
+            }
+
+            @media(prefers-reduced-motion:reduce) {
+                * {
+                    animation: none!important;
+                    transition: none!important
+                }
+
+                .rv {
+                    opacity: 1;
+                    transform: none
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <a class="skip" href="#main">Saltar al contenido</a>
+        <div id="bar"></div>
+        <div class="bg">
+            <div class="grid"></div>
+            <div class="blob b1"></div>
+            <div class="blob b2"></div>
+            <div class="blob b3"></div>
+            <div class="ring r1"></div>
+            <div class="ring r2"></div>
         </div>
-        <div class="desc-text">
-          <p>Soy un dibujante avanzado, programador principiante y apasionado de los videojuegos, con bastante experiencia y facilidad para adaptarme a distintos géneros.</p>
-          <p>Me considero una persona amable, tranquila y respetuosa, aunque mis gustos musicales son bastante opuestos y particulares. Actualmente soy estudiante de la Escuela N.º 451, donde continúo desarrollando mis conocimientos y habilidades en programación.</p>
-        </div>
-      </div>
-    </section>
+        <nav aria-label="Menú principal">
+            <a href="#sobre">Sobre mí</a>
+            <a href="#dibujos">Dibujos</a>
+            <a href="#juegos">Juegos</a>
+        </nav>
+        <main id="main" class="wrap">
+            <header class="hero">
+                <p class="kicker">Escuela N.º 451 · Trabajo práctico</p>
+                <h1>Jerónimo</h1>
+                <p class="sub">Dibujante, programador y gamer. Bienvenido a mi página.</p>
+                <a class="arrow" href="#sobre" aria-label="Bajar">↓</a>
+            </header>
+            <section id="sobre" class="rv">
+                <h2>Sobre mí</h2>
+                <div class="about">
+                    <img class="foto" src="foto.jpg" alt="Foto de Jerónimo" width="720" height="964" decoding="async">
+                    <div>
+                        <p>Soy un dibujante avanzado, programador principiante y apasionado de los videojuegos, con bastante experiencia y facilidad para adaptarme a distintos géneros.</p>
+                        <p>Me considero una persona amable, tranquila y respetuosa, aunque mis gustos musicales son bastante opuestos y particulares. Actualmente soy estudiante de la Escuela N.º 451, donde continúo desarrollando mis conocimientos y habilidades en programación.</p>
+                    </div>
+                </div>
+            </section>
+            <section id="dibujos" class="rv">
+                <h2>Dibujos</h2>
+                <div class="draws">
+                    <div class="draw">
+                        <img src="WhatsApp%20Image%202026-10-29%20at%2012.42.18%20AM.jpeg" alt="Dibujo 1, dibujo hecho a mano por Jerónimo" width="576" height="768" loading="lazy" decoding="async">
+                    </div>
+                    <div class="draw">
+                        <img src="1WhatsApp%20Image%202026-10-29%20at%2012.42.18%20AM.jpeg" alt="Dibujo 2, dibujo hecho a mano por Jerónimo" width="576" height="768" loading="lazy" decoding="async">
+                    </div>
+                    <div class="draw">
+                        <img src="2WhatsApp%20Image%202026-10-29%20at%2012.44.30%20AM.jpeg" alt="Dibujo 3, dibujo hecho a mano por Jerónimo" width="576" height="768" loading="lazy" decoding="async">
+                    </div>
+                </div>
+            </section>
+            <section id="juegos" class="rv">
+                <h2>Juegos</h2>
+                <div class="carousel">
+                    <div class="track" id="track">
+                        <div class="slide">
+                            <h3>Scratch · Snake Game</h3>
+                            <img class="shot" src="snake.jpg" alt="Captura del juego Snake Game" loading="lazy">
+                            <a class="play" href="https://scratch.mit.edu/projects/1308157944/" target="_blank" rel="noopener">
+                                <i>▶</i>Jugar en Scratch
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <h3>Scratch · Juego de las estrellas</h3>
+                            <img class="shot" src="estrellas.jpg" alt="Captura del juego de las estrellas" loading="lazy">
+                            <a class="play" href="https://scratch.mit.edu/projects/1297509687/" target="_blank" rel="noopener">
+                                <i>▶</i>Jugar en Scratch
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <h3>App Inventor</h3>
+                            <div class="two">
+                                <img class="shot wh" src="app.jpg" alt="Captura de la app" loading="lazy">
+                                <a class="qr" href="https://ai2a.appinventor.mit.edu/b/2l6g0" target="_blank" rel="noopener">
+                                    <img src="qr.png" alt="Código QR para abrir la app" loading="lazy">
+                                    <span>Escaneá el QR para abrir la app</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <h3>PSeInt · Pelea RPG</h3>
+                            <pre class="term" aria-label="Pantalla del programa en PSeInt">
+                                Estas recoletando hierbas en el bosque hasta que ¡un moustro te embosca en un bosque!,¡preparate para defenderte!
+(ESCRIBIR TODO EN MAYUSCULAS Y EXACTO SI NO, PIERDES TURNO)
+=================================
+1
+---------------------------------
+Mounstro: 100
+---------------------------------
+Player vida: 100
+Player mana: 100
 
-    <section>
-      <span class="tab">Dibujos</span>
-      <div class="dibujos-grid">
-        <div class="dibujo-box">
-          <img src="WhatsApp Image 2026-10-29 at 12.42.18 AM.jpeg" alt="Dibujo 1" class="dibujo-img">
-        </div>
-        <div class="dibujo-box">
-          <img src="1WhatsApp Image 2026-10-29 at 12.42.18 AM.jpeg" alt="Dibujo 2" class="dibujo-img">
-        </div>
-        <div class="dibujo-box">
-          <img src="2WhatsApp Image 2026-10-29 at 12.44.30 AM.jpeg" alt="Dibujo 3" class="dibujo-img">
-        </div>
-      </div>
-    </section>
+ATAQUE   HABILIDADES   ACCIONES  ITEMS
 
-    <section>
-      <span class="tab">Juegos</span>
-      <div class="carousel">
-        <div class="carousel-track" id="carouselTrack">
-          <div class="juego-slide">
-            <h3>Scratch</h3>
-            <a class="scratch-card" href="https://scratch.mit.edu/projects/1308157944/" target="_blank" rel="noopener">
-              <span class="scratch-icon">▶</span>
-              <span>Abrir proyecto en Scratch</span>
-            </a>
-          </div>
-          <div class="juego-slide">
-            <h3>Scratch</h3>
-            <a class="scratch-card" href="https://scratch.mit.edu/projects/1297509687/" target="_blank" rel="noopener">
-              <span class="scratch-icon">▶</span>
-              <span>Abrir proyecto en Scratch</span>
-            </a>
-          </div>
-          <div class="juego-slide">
-            <h3>App Inventor</h3>
-            <div class="juego-embed"></div>
-          </div>
-        </div>
-        <div class="carousel-nav">
-          <button class="nav-btn" id="prevBtn" aria-label="Anterior">‹</button>
-          <div class="dots" id="dots">
-            <button class="dot active" data-index="0" aria-label="Ir a Scratch 1"></button>
-            <button class="dot" data-index="1" aria-label="Ir a Scratch 2"></button>
-            <button class="dot" data-index="2" aria-label="Ir a App Inventor"></button>
-          </div>
-          <button class="nav-btn" id="nextBtn" aria-label="Siguiente">›</button>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <script>
-    const track = document.getElementById('carouselTrack');
-    const dots = Array.from(document.querySelectorAll('.dot'));
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const total = dots.length;
-    let index = 0;
-
-    function goTo(i){
-      index = (i + total) % total;
-      track.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach((d, di) => d.classList.toggle('active', di === index));
-    }
-
-    prevBtn.addEventListener('click', () => goTo(index - 1));
-    nextBtn.addEventListener('click', () => goTo(index + 1));
-    dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.index))));
-
-    // deslizar con el dedo / mouse
-    let startX = 0;
-    let isDragging = false;
-
-    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; });
-    track.addEventListener('touchend', e => {
-      if(!isDragging) return;
-      const diff = e.changedTouches[0].clientX - startX;
-      if(diff > 40) goTo(index - 1);
-      else if(diff < -40) goTo(index + 1);
-      isDragging = false;
-    });
-  </script>
-
-</body>
+     Elige tu accion:
+&gt;<b></b>
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="cnav">
+                        <button class="nb" id="prev" aria-label="Anterior">‹</button>
+                        <div class="dots">
+                            <button class="dot on" aria-label="Scratch 1"></button>
+                            <button class="dot" aria-label="Scratch 2"></button>
+                            <button class="dot" aria-label="App Inventor"></button>
+                            <button class="dot" aria-label="PSeInt"></button>
+                        </div>
+                        <button class="nb" id="next" aria-label="Siguiente">›</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <script>
+            const io = new IntersectionObserver(e => e.forEach( (x, i) => {
+                if (x.isIntersecting) {
+                    setTimeout( () => x.target.classList.add('in'), (x.target.classList.contains('card') ? i * 90 : 0));
+                    io.unobserve(x.target)
+                }
+            }
+            ),{
+                threshold: .12
+            });
+            document.querySelectorAll('.rv').forEach(el => io.observe(el));
+            const bar = document.getElementById('bar');
+            addEventListener('scroll', () => {
+                bar.style.width = (scrollY / (document.documentElement.scrollHeight - innerHeight) * 100) + '%'
+            }
+            , {
+                passive: true
+            });
+            const tr = document.getElementById('track')
+              , ds = [...document.querySelectorAll('.dot')];
+            let i = 0
+              , sx = 0;
+            const sl = [...tr.children];
+            function fit() {
+                tr.style.height = sl[i].offsetHeight + 'px'
+            }
+            addEventListener('resize', fit);
+            addEventListener('load', fit);
+            tr.querySelectorAll('img').forEach(m => m.addEventListener('load', fit));
+            function go(n) {
+                i = (n + ds.length) % ds.length;
+                tr.style.transform = 'translateX(-' + i * 100 + '%)';
+                fit();
+                ds.forEach( (d, k) => d.classList.toggle('on', k === i))
+            }
+            prev.onclick = () => go(i - 1);
+            next.onclick = () => go(i + 1);
+            ds.forEach( (d, k) => d.onclick = () => go(k));
+            tr.addEventListener('touchstart', e => sx = e.touches[0].clientX);
+            tr.addEventListener('touchend', e => {
+                const d = e.changedTouches[0].clientX - sx;
+                if (d > 40)
+                    go(i - 1);
+                else if (d < -40)
+                    go(i + 1)
+            }
+            );
+            const topb = document.createElement('button');
+            topb.id = 'top';
+            topb.textContent = '↑';
+            topb.setAttribute('aria-label', 'Volver arriba');
+            topb.onclick = () => scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            document.body.appendChild(topb);
+            addEventListener('scroll', () => topb.classList.toggle('show', scrollY > 500), {
+                passive: true
+            });
+        </script>
+    </body>
 </html>
